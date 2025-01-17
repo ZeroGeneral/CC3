@@ -1,67 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package radixtrials;
 
-package quicksort1;
-
-/**
- *
- * @author clyde
- */
 import java.util.Arrays;
 
-public class QuickSort1 {
-    static int counter = 0; // Counter variable
+public class RadixTrials {
+    private static int counter = 0; // Global counter for TFC
 
     public static void main(String[] args) {
         int[] arr = {10, 7, 8, 9, 1};
-        quickSort(arr, 0, arr.length - 1);
+        int n = arr.length;
 
-        // Print the sorted array and counter value
+        quickSort(arr, 0, n - 1);
+
         System.out.println("Sorted array: " + Arrays.toString(arr));
-        System.out.println("Instruction Count: " + counter);
+        System.out.println("Instruction Count (TFC): " + counter);
     }
 
     static void quickSort(int[] arr, int low, int high) {
-        counter++; // Increment counter for method call
         if (low < high) {
-            // Partition the array
+            counter++; // Condition check
             int pi = partition(arr, low, high);
-            counter++; // Increment counter for partition operation
-
-            // Recursively sort elements before and after partition
+            counter++; // Partition call
             quickSort(arr, low, pi - 1);
             quickSort(arr, pi + 1, high);
         }
+        counter++; // Final condition check
     }
 
     static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high]; // Pivot element
-        counter++; // Increment counter for pivot assignment
-        int i = (low - 1); // Index of smaller element
-        counter++; // Increment counter for index initialization
+        int pivot = arr[high];
+        counter++; // Pivot assignment
+        int i = low - 1;
+        counter++; // i initialization
 
         for (int j = low; j < high; j++) {
-            counter++; // Increment counter for loop iteration
+            counter++; // Loop condition
             if (arr[j] < pivot) {
+                counter++; // Condition check
                 i++;
-                // Swap arr[i] and arr[j]
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                counter += 3; // Increment counter for swap
+                counter++; // Increment i
+                swap(arr, i, j);
+                counter++; // Swap call
             }
         }
+        counter++; // Final loop condition check
 
-        // Swap arr[i+1] and arr[high] (pivot)
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-        counter += 3; // Increment counter for final swap
-
+        swap(arr, i + 1, high);
+        counter++; // Final swap call
         return i + 1;
     }
-}
 
+    static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        counter += 3; // For the swap operations
+    }
+}
