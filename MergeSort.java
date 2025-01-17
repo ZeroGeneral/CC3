@@ -1,71 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package radixtrials;
 
-package mergesort;
-
-/**
- *
- * @author clyde
- */
 import java.util.Arrays;
 
-public class MergeSort {
-    static int counter = 0; // Counter variable
+public class RadixTrials {
+    private static int counter = 0; // Global counter for TFC
 
     public static void main(String[] args) {
         int[] arr = {10, 7, 8, 9, 1};
-        mergeSort(arr, 0, arr.length - 1);
+        int n = arr.length;
 
-        // Print the sorted array and counter value
+        mergeSort(arr, 0, n - 1);
+
         System.out.println("Sorted array: " + Arrays.toString(arr));
-        System.out.println("Instruction Count: " + counter);
+        System.out.println("Instruction Count (TFC): " + counter);
     }
 
-    static void mergeSort(int[] arr, int left, int right) {
-        counter++; // Increment counter for method call
-        if (left < right) {
-            // Find the middle point
-            int mid = left + (right - left) / 2;
-            counter++; // Increment counter for middle point calculation
-
-            // Recursively sort the two halves
-            mergeSort(arr, left, mid);
-            mergeSort(arr, mid + 1, right);
-
-            // Merge the sorted halves
-            merge(arr, left, mid, right);
+    static void mergeSort(int[] arr, int l, int r) {
+        if (l < r) {
+            counter++; // Condition check
+            int m = l + (r - l) / 2;
+            counter++; // Middle calculation
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            merge(arr, l, m, r);
+            counter++; // Merge call
         }
+        counter++; // Final condition check
     }
 
-    static void merge(int[] arr, int left, int mid, int right) {
-        // Sizes of two subarrays
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-        counter += 2; // Increment counter for size calculation
+    static void merge(int[] arr, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        counter += 2; // Sizes of temporary arrays
 
-        // Create temporary arrays
         int[] L = new int[n1];
         int[] R = new int[n2];
-        counter += 2; // Increment counter for array creation
+        counter += 2; // Temporary arrays initialization
 
-        // Copy data to temp arrays
         for (int i = 0; i < n1; i++) {
-            L[i] = arr[left + i];
-            counter++;
+            L[i] = arr[l + i];
+            counter++; // Array copy operation
         }
-        for (int j = 0; j < n2; j++) {
-            R[j] = arr[mid + 1 + j];
-            counter++;
-        }
+        counter++; // Final loop condition check
 
-        // Merge the temp arrays
-        int i = 0, j = 0, k = left;
-        counter += 3; // Increment counter for initial indices
+        for (int j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+            counter++; // Array copy operation
+        }
+        counter++; // Final loop condition check
+
+        int i = 0, j = 0, k = l;
+        counter += 3; // Index initializations
+
         while (i < n1 && j < n2) {
-            counter++; // Increment counter for loop condition
+            counter++; // Loop condition
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
                 i++;
@@ -74,23 +62,24 @@ public class MergeSort {
                 j++;
             }
             k++;
-            counter += 2; // Increment counter for assignments
+            counter += 4; // Assignments and increments
         }
+        counter++; // Final loop condition check
 
-        // Copy remaining elements of L[]
         while (i < n1) {
             arr[k] = L[i];
             i++;
             k++;
-            counter += 2; // Increment counter for assignments
+            counter += 3; // Assignments and increments
         }
+        counter++; // Final loop condition check
 
-        // Copy remaining elements of R[]
         while (j < n2) {
             arr[k] = R[j];
             j++;
             k++;
-            counter += 2; // Increment counter for assignments
+            counter += 3; // Assignments and increments
         }
+        counter++; // Final loop condition check
     }
 }
