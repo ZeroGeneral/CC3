@@ -1,40 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package radixtrials;
 
-package bubblesort;
-
-/**
- *
- * @author clyde
- */
 import java.util.Arrays;
 
-public class BubbleSort {
-    static int counter = 0;  // Counter for operations
-
-    public static void bubbleSort(int[] arr) {
+public class RadixTrials {
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1};
         int n = arr.length;
+        int counter = 0; // Counter for TFC
+
+        // Bubble Sort Algorithm
         for (int i = 0; i < n - 1; i++) {
+            counter++; // Outer loop condition
             for (int j = 0; j < n - i - 1; j++) {
-                counter++;  // Comparison operation
+                counter++; // Inner loop condition
                 if (arr[j] > arr[j + 1]) {
-                    // Swap the elements
+                    // Swap elements
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
-                    counter++;  // Swap operation count
+                    counter += 3; // Swap operations
                 }
+                counter++; // If condition check
             }
+            counter++; // Final inner loop condition
         }
-    }
+        counter++; // Final outer loop condition
 
-    public static void main(String[] args) {
-        int[] arr = {10, 7, 8, 9, 1};  // Dataset
-        bubbleSort(arr);
+        // Print sorted array and TFC
         System.out.println("Sorted array: " + Arrays.toString(arr));
-        System.out.println("Bubble Sort Counter: " + counter);
+        System.out.println("Instruction Count (TFC): " + counter);
     }
 }
